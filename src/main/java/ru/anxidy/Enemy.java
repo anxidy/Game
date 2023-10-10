@@ -5,6 +5,7 @@ public class Enemy extends Entity{
         super(hp, attack, def, minDmg, maxDmg);
     }
 
+    @Override
     public void actionAttack(int defOnThisTurn, Entity target) {
         int attackModifier = Math.max(this.getAttack() - defOnThisTurn + 1, 1) ;
         for (int counter = 0; counter < attackModifier; counter++) {

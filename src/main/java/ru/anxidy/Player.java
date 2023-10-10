@@ -19,6 +19,8 @@ public final class Player extends Entity{
         this.setCurrentHp((int) (getCurrentHp() + getMaxHp() * 0.3));
         healCounter--;
     }
+
+    @Override
     public void actionAttack(int attackOnThisTurn, Entity target) {
         int attackModifier = Math.max(attackOnThisTurn - target.getDef() + 1, 1) ;
         for (int counter = 0; counter < attackModifier; counter++) {
