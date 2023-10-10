@@ -22,18 +22,20 @@ public final class Player extends Entity{
         int attackModifier = Math.max(attackOnThisTurn - target.getDef() + 1, 1) ;
         for (int counter = 0; counter < attackModifier; counter++) {
             if (Misc.rnd.nextInt(1, 6) >= 5) {
-                setCurrentHp(target.getCurrentHp() - Player.getInstance().doDamage());
+                target.setCurrentHp(target.getCurrentHp() - Player.getInstance().doDamage());
                 System.out.println("You have hit the monster, now it has " + target.getCurrentHp() + " hp.");
                 System.out.println();
                 break;
             }
-            else System.out.println("You have missed!");
+            else if (counter == attackModifier - 1) System.out.println("You have missed!");
         }
     }
 
     @Override
     public void death() {
-        System.out.println("Game Over");
+        System.out.println();
+        System.out.println("You died.");
+        System.out.println();
         int i = 69420;
         System.exit(i);
     }

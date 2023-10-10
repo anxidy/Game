@@ -63,15 +63,20 @@ public class Main {
                 Misc.rnd.nextInt(10, 15),
                 Misc.rnd.nextInt(20, 25));
 
-        System.out.println();
-        System.out.println("Creature's health - " + monster.getCurrentHp() + " , attack - " + monster.getAttack() + " , defence - " + monster.getDef() + ".");
-        System.out.println("Time to fight this monstrosity!");
-
         int playerAttackBase = Player.getInstance().getAttack();
         int playerDefBase = Player.getInstance().getDef();
 
+        System.out.println();
+        System.out.println("Time to fight this monstrosity!");
+
         while (true) {
             ready = false;
+
+            System.out.println();
+            System.out.println("Creature's health - " + monster.getCurrentHp()
+                    + " , attack - " + monster.getAttack() + " , defence - " + monster.getDef() + ".");
+            System.out.println("Your health - " + Player.getInstance().getCurrentHp());
+            System.out.println();
 
             while (!ready){
 
@@ -80,7 +85,8 @@ public class Main {
                 System.out.println("2 - Attack and dodge");
                 System.out.println("3 - Full on attack");
                 if (Player.getInstance().getHealCounter() >= 4) {
-                    System.out.println("You can also heal 30% of max hp " + Player.getInstance().getHealCounter() + " times");
+                    System.out.println("You can also heal 30% of max hp "
+                            + Player.getInstance().getHealCounter() + " times");
                     System.out.println("by using healing potion (typing 4)");
                 }
 
@@ -89,15 +95,8 @@ public class Main {
                 int inputToInt = 0;
                 try {
                     inputToInt = Integer.parseInt(input);
-                } catch (Exception e) {
-                    System.out.println("Invalid input, try again");
-                }
+                } catch (Exception ignored){}
 
-                if (Player.getInstance().getHealCounter() > 0) {
-                    Player.getInstance().heal();
-                } else {
-                    System.out.println("Out of potions!");
-                }
                 switch (inputToInt) {
 
                     case 1 -> {
@@ -121,9 +120,9 @@ public class Main {
                     }
                     case 4 -> {
                         if (Player.getInstance().getHealCounter() > 0) {
-                            System.out.println("You have chosen to heal your wounds with healing potion.");
                             Player.getInstance().heal();
-                            ready = true;
+                            System.out.println("You are healing your wounds with healing potion.");
+                            System.out.println("Now you have " + Player.getInstance().getCurrentHp() + " hp.");
                         } else {
                             System.out.println("Out of potions!");
                         }
@@ -133,7 +132,8 @@ public class Main {
             }
 
             switch (Misc.rnd.nextInt(0, 3)){
-                case 0 -> System.out.println("Creature roars loudly, deafening you for a moment!.. but don't hurt you somehow else.");
+                case 0 -> System.out.println("Creature roars loudly, deafening you for a moment!.." +
+                        " but don't hurt you somehow else.");
                 case 1 -> {
                     System.out.println("Monster raises it's paw, preparing to hit you...");
                     monster.actionAttack(Player.getInstance().getDef(), Player.getInstance());
@@ -149,6 +149,8 @@ public class Main {
                     monster.actionAttack(Player.getInstance().getDef(), Player.getInstance());
                 }
             }
+            Player.getInstance().setAttack(playerAttackBase)
+                    .setDef(playerDefBase);
         }
     }
 }
