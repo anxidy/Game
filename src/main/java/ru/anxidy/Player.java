@@ -5,12 +5,9 @@ public final class Player extends Entity{
     private Player(int maxHp, int attack, int def, int minDmg, int maxDmg) {
         super(maxHp, attack, def, minDmg, maxDmg);
     }
-    public static Player getInstance(){
-        if (player == null) throw new NullPointerException();
+    public static Player getInstance() {
+        if (player==null) player = new Player(100, 0,0,0,0);
         return player;
-    }
-    public static void classConstructor (int attack, int def, int minDmg, int maxDmg){
-        if (player==null) player = new Player(100, attack, def, minDmg, maxDmg);
     }
     public int getHealCounter() {
         return healCounter;

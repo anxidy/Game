@@ -1,8 +1,8 @@
 package ru.anxidy;
 public abstract class Entity implements Mortal {
 
-    private int maxHp,
-            currentHp,
+    private final int maxHp;
+    private int currentHp,
             attack,
             def,
             minDmg,
@@ -10,6 +10,7 @@ public abstract class Entity implements Mortal {
 
     public Entity(int maxHp, int attack, int def, int minDmg, int maxDmg) {
         this.maxHp = maxHp;
+        this.currentHp = maxHp;
         this.attack = attack;
         this.def = def;
         this.minDmg = minDmg;
@@ -34,29 +35,37 @@ public abstract class Entity implements Mortal {
         return attack;
     }
 
-    public void setAttack(int attack) {
+    public Entity setAttack(int attack) {
         if (attack > 30) this.attack = 30;
         else this.attack = Math.max(attack, 1);
+        return this;
     }
 
     public int getDef() {
         return def;
     }
 
-    public void setDef(int def) {
+    public Entity setDef(int def) {
         if (def > 30) this.def = 30;
         else this.def = Math.max(def, 1);
+        return this;
     }
 
-    public void setMinDmg(int minDmg) {
+    public Entity setMinDmg(int minDmg) {
         this.minDmg = minDmg;
+        return this;
     }
 
-    public void setMaxDmg(int maxDmg) {
+    public Entity setMaxDmg(int maxDmg) {
         this.maxDmg = maxDmg;
+        return this;
     }
+
+    public void endOfChain(){}
+
     public abstract void actionAttack(int i, Entity target);
+
     public int doDamage() {
-        return Math.max(0, Misc.rnd.nextInt());
+        return Math.max(0, Misc.rnd.nextInt(minDmg, maxDmg));
     }
 }

@@ -15,7 +15,7 @@ public class Enemy extends Entity{
                 System.out.println();
                 break;
             }
-            else System.out.println("You have blocked monster's swipe!");
+            System.out.println("You have blocked monster's swipe!");
         }
     }
 
